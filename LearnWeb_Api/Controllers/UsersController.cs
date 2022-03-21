@@ -39,7 +39,7 @@ namespace LearnWeb_Api.Controllers
             User user = await _db.Users.FirstOrDefaultAsync(x => x.Id == id);
             if (user == null)
                 return NotFound();
-            return new ObjectResult(user);
+            return Ok(user);
         }
 
         // POST api/users

@@ -55,7 +55,10 @@ namespace LearnWeb_Api
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
 
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Test API V1");
+                });
             }
 
             app.UseRouting();
@@ -63,10 +66,10 @@ namespace LearnWeb_Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                //endpoints.MapGet("/", async context =>
-                //{
-                //    await context.Response.WriteAsync("Hello World!");
-                //});
+                endpoints.MapGet("/", async context =>
+                {
+                    await context.Response.WriteAsync("Hello World!");
+                });
             });
         }
     }

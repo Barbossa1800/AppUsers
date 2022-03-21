@@ -9,6 +9,6 @@ namespace LearnWeb_Api.Infrastructure.Context
         {
             Database.EnsureCreated();
         }
-        public DbSet<User> Users{ get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

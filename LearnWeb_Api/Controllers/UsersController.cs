@@ -27,34 +27,65 @@ namespace LearnWeb_Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
+        public async Task<ActionResult<IEnumerable<User>>> Get()
         {
             return await _db.Users.ToListAsync();
         }
 
-        // GET api/<ValuesController>/5
+        // GET api/users/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<User>> Get(int id)
         {
-            return "value";
+            User user = await _db.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if (user == null)
+                return NotFound();
+            return new ObjectResult(user);
         }
 
-        // POST api/<ValuesController>
+        // POST api/users
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<User>> Post(User user)
         {
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            _db.Users.Add(user);
+            await _db.SaveChangesAsync();
+            return Ok(user);
         }
 
-        // PUT api/<ValuesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/users/
+        [HttpPut]
+        public async Task<ActionResult<User>> Put(User user)
         {
+            if (user == null)
+            {
+                return BadRequest();
+            }
+            if (!_db.Users.Any(x => x.Id == user.Id))
+            {
+                return NotFound();
+            }
+
+            _db.Update(user);
+            await _db.SaveChangesAsync();
+            return Ok(user);
         }
 
-        // DELETE api/<ValuesController>/5
+        // DELETE api/users/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult<User>> Delete(int id)
         {
+            User user = _db.Users.FirstOrDefault(x => x.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            _db.Users.Remove(user);
+            await _db.SaveChangesAsync();
+            return Ok(user);
         }
     }
 }

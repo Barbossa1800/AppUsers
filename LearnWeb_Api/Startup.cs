@@ -2,10 +2,10 @@ using LearnWeb_Api.Infrastructure.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 namespace LearnWeb_Api
@@ -32,6 +32,7 @@ namespace LearnWeb_Api
                     Version = "v1",
                     Title = "DUT API",
                 });
+                s.EnableAnnotations();
             });
         }
 

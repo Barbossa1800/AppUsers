@@ -1,8 +1,8 @@
-﻿using LearnWeb_Api.Infrastructure.Context;
+﻿using AutoMapper;
+using LearnWeb_Api.Infrastructure.Context;
 using LearnWeb_Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,9 +15,11 @@ namespace LearnWeb_Api.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserDbContext _db;
-        public UsersController(UserDbContext db)
+        private readonly IMapper _mapper;
+        public UsersController(UserDbContext db, IMapper mapper)
         {
             _db = db;
+            _mapper = mapper;
             if (!_db.Users.Any())
             {
                 _db.Users.Add(new User { Name = "Tom", Age = 26 });
@@ -42,8 +44,8 @@ namespace LearnWeb_Api.Controllers
             return Ok(user);
         }
 
-        // POST api/users
-        [HttpPost]
+       //POST api/users
+       [HttpPost]
         public async Task<ActionResult<User>> Post(User user)
         {
             if (user == null)

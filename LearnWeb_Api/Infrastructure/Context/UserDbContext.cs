@@ -1,4 +1,5 @@
-﻿using LearnWeb_Api.Models;
+﻿using LearnWeb_Api.DTO;
+using LearnWeb_Api.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace LearnWeb_Api.Infrastructure.Context
@@ -10,5 +11,6 @@ namespace LearnWeb_Api.Infrastructure.Context
             Database.EnsureCreated();
         }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserDTO> UsersDTO { get; set; }
     }
 }
